@@ -1,12 +1,17 @@
 from django.shortcuts import render
-
-from rest_framework import generics
-
-from . import models 
-from . import serializers 
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
-class SendLocationViewSet(generics.ListCreateAPIView):
-    queryset = models.SendLocationModel.objects.all()
-    serializer_class = serializers.SendLocationSerializers
+@csrf_exempt
+def index(request):
+    id = request.GET.get("id")
+    device_id = request.GET.get("device_id")
+    lat = request.GET.get("lat")
+    lon = request.GET.get("lon")
+    speed = request.GET.get("speed")
+
+    print(request.GET)
+
+    return HttpResponse("ok")
