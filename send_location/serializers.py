@@ -1,9 +1,8 @@
-from .models import SendLocationModel
+from .models import Location
 from rest_framework import serializers
 
 
-class SendLocationSerializers(serializers.ModelSerializer):
-
+class LocationSerializers(serializers.ModelSerializer):
     class Meta:
-        model = SendLocationModel
-        fields = '__all__'
+        model = Location
+        fields = ["device_id", "lat", "lon", "speed"]
