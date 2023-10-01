@@ -26,3 +26,5 @@ txaio==23.1.1
 typing_extensions==4.8.0
 tzdata==2023.3
 zope.interface==6.0
+httplib2==0.20.4
+pyparsing==3.0.9
