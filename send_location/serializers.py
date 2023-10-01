@@ -15,17 +15,8 @@ class LocationSerializers(serializers.ModelSerializer):
             speed = validated_data["speed"]
         )
         device = Device.objects.get(unique_id=int(validated_data["device_id"]))
-        # laa = Device.objects.get(unique_id=float(validated_data["lat"]))
-        # lonn = Device.objects.get(unique_id=float(validated_data["lon"]))
-    
         device.last_position = location
-        # laa.last_position = location
-        # lonn.last_position = location
-        
         device.save()
-        # laa.save()
-        # lonn.save()
-
         return location
 
 class DeviceSerializers(serializers.ModelSerializer):
