@@ -1,13 +1,17 @@
 #!/usr/bin/python3
 
-import urllib
-import httplib2
+# import urllib
+# import httplib2
 import time
 import datetime
 import http.client
 import sys
+from decouple import config
 
-server = 'localhost:8000'
+
+host_server = config("HOST_SERVER_SEND_LOCATION")
+port_server = config("PORT_SERVER_SEND_LOCATION")
+server = f'{host_server}:{port_server}'
 
 points_1 = [
     (31.864710, 54.331650, 0.0),
@@ -426,7 +430,6 @@ points_4 = [
 import json
 def send(conn, time, lat, lon, speed, device_id):
     params = (('id ', device_id), ('timestamp', int(time)), ('lat', lat), ('lon', lon), ('speed', speed))
-    # print(f"time : {moment}, device_id: {device_id}, server: {server}, lat: {lat}, lon: {lon}")
     data = {"device_id": device_id, "timestamp": int(time), "lat": lat, "lon": lon, "speed":speed}
     headers = {'Content-type': 'application/json'}
     conn.request('POST', '', json.dumps(data), headers)
@@ -462,6 +465,3 @@ if len(sys.argv) > 1:
         print("Please enter one of the device IDs 112233, 445566, 778899, 001122, 887766, 998877", "554433", "221100")
 else:
     print("please enter argument")
-
-
-# docker run --name traccar --hostname traccar --detach --restart unless-stopped --publish 80:8082 --publish 5000-5150:5000-5150 --publish 5000-5150:5000-5150/udp --volume /opt/traccar/logs:/opt/traccar/logs:rw --volume /opt/traccar/traccar.xml:/opt/traccar/conf/traccar.xml:ro traccar/traccar:latest

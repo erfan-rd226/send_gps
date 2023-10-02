@@ -1,8 +1,9 @@
 from django.urls import path 
 
-from . import views 
+from send_location import apis
 
+app_name="send_location"
 
 urlpatterns = [
-    path("",views.LocationApi.as_view())
+    path("", apis.LocationApi.as_view(), name="create_location")
 ]

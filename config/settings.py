@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,31 +21,38 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-==p7-dia8k*zzs*aqax!(r8%kwgue5nwjpa5kf)hpp!hx&h20)'
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG")
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
-INSTALLED_APPS = [
-    "daphne",
+
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "daphne"
+]
+
+MY_APPS = [
+    'send_location.apps.SendLocationConfig',
+    'websock.apps.WebsockConfig',
+]
+
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    "django.contrib.sites",	                   
-# my app   
-    'send_location',
-    'websock',
-
+    "django.contrib.sites"
 ]
+
+INSTALLED_APPS = THIRD_PARTY_APPS + MY_APPS + DJANGO_APPS
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'config.wsgi.application'
+
 ASGI_APPLICATION = "config.asgi.application"
 
 
