@@ -1,0 +1,22 @@
+  version: '3'
+  services:
+    db:
+      image: postgis/postgis:14-master
+      container_name: its_postgresql
+      hostname: its_postgresql
+
+      ports:
+            - 3369:5432
+
+      env_file: 
+            - .env
+      
+      networks:
+            - location
+
+      restart: on-failure
+      
+  networks:
+    location:
+      name: location
+      external: true
